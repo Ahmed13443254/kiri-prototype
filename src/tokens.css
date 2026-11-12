@@ -1,0 +1,226 @@
+/* kiri design tokens, generated from replica/design/tokens.json.
+   Do not hand-edit values here: change the JSON, then re-run
+   python -I contrast.py replica/design/tokens.json
+
+   Names are ROLES, not colours. replica-brand swaps the values in
+   tokens.json and this file is regenerated; the component layer never
+   learns a hex code. Light is the default; `data-theme="dark"` (or a
+   system preference, if the settings screen is set to follow it)
+   re-points the same names, so no component needs a dark variant. */
+
+:root {
+  color-scheme: light;
+
+  /* surfaces */
+  --k-bg: #f6f7f4;
+  --k-sunken: #edefea;
+  --k-surface: #ffffff;
+  --k-border: #dde0d9;
+  --k-border-strong: #77807a;
+  --k-border-input: #77807a;
+
+  /* ink */
+  --k-text: #161a17;
+  --k-text-muted: #4c554f;
+  --k-text-faint: #5f6a63;
+
+  /* accent */
+  --k-accent: #2f45c8;
+  --k-accent-soft: #eaedfb;
+  --k-on-accent: #ffffff;
+
+  /* status */
+  --k-danger: #a32a2a;
+  --k-danger-soft: #fbeded;
+  --k-on-danger: #ffffff;
+  --k-success: #146b42;
+  --k-success-soft: #e9f5ee;
+  --k-on-success: #ffffff;
+  --k-warning: #7a5200;
+  --k-warning-soft: #fbf3e2;
+  --k-on-warning: #ffffff;
+
+  /* type */
+  --k-font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --k-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --k-text-xs: 12px;
+  --k-text-sm: 14px;
+  --k-text-base: 16px;
+  --k-text-lg: 20px;
+  --k-text-xl: 28px;
+  --k-text-2xl: 40px;
+
+  --k-leading-xs: 16px;
+  --k-leading-sm: 20px;
+  --k-leading-base: 24px;
+  --k-leading-lg: 28px;
+  --k-leading-xl: 34px;
+  --k-leading-2xl: 44px;
+
+  --k-weight-regular: 400;
+  --k-weight-medium: 500;
+  --k-weight-semibold: 600;
+  --k-weight-bold: 700;
+
+  /* spacing, 4px base */
+  --k-space-0: 0;
+  --k-space-1: 4px;
+  --k-space-2: 8px;
+  --k-space-3: 12px;
+  --k-space-4: 16px;
+  --k-space-5: 24px;
+  --k-space-6: 32px;
+  --k-space-7: 48px;
+  --k-space-8: 64px;
+
+  /* radius */
+  --k-radius-sm: 6px;
+  --k-radius-md: 10px;
+  --k-radius-lg: 16px;
+  --k-radius-pill: 999px;
+
+  /* elevation */
+  --k-shadow-card: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.10);
+  --k-shadow-pop: 0 12px 32px rgba(16, 24, 40, 0.16);
+}
+
+/* ---- dark ---- */
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --k-bg: #0f1211;
+  --k-sunken: #0a0c0b;
+  --k-surface: #161b19;
+  --k-border: #2a312d;
+  --k-border-strong: #79857e;
+  --k-border-input: #79857e;
+
+  --k-text: #e9edea;
+  --k-text-muted: #a6b0aa;
+  --k-text-faint: #8b968f;
+
+  --k-accent: #a9b8ff;
+  --k-accent-soft: #1b2144;
+  --k-on-accent: #10163a;
+
+  --k-danger: #ff9c9c;
+  --k-danger-soft: #2e1516;
+  --k-on-danger: #2a0b0b;
+  --k-success: #6de0a8;
+  --k-success-soft: #0f2a1e;
+  --k-on-success: #052114;
+  --k-warning: #f2c14e;
+  --k-warning-soft: #2a2110;
+  --k-on-warning: #241a02;
+}
+
+/* Follow the OS only when the settings screen asked for it
+   (`data-theme="system"` on <html>). An explicit choice wins. */
+[data-theme="system"] {
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] {
+    color-scheme: dark;
+
+    --k-bg: #0f1211;
+    --k-sunken: #0a0c0b;
+    --k-surface: #161b19;
+    --k-border: #2a312d;
+    --k-border-strong: #79857e;
+    --k-border-input: #79857e;
+
+    --k-text: #e9edea;
+    --k-text-muted: #a6b0aa;
+    --k-text-faint: #8b968f;
+
+    --k-accent: #a9b8ff;
+    --k-accent-soft: #1b2144;
+    --k-on-accent: #10163a;
+
+    --k-danger: #ff9c9c;
+    --k-danger-soft: #2e1516;
+    --k-on-danger: #2a0b0b;
+    --k-success: #6de0a8;
+    --k-success-soft: #0f2a1e;
+    --k-on-success: #052114;
+    --k-warning: #f2c14e;
+    --k-warning-soft: #2a2110;
+    --k-on-warning: #241a02;
+  }
+}
+
+/* ---- base ---- */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--k-bg);
+  color: var(--k-text);
+  font-family: var(--k-font-sans);
+  font-size: var(--k-text-sm);
+  line-height: var(--k-leading-sm);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* The app is a desktop window: the shell owns scrolling, never the page. */
+body {
+  overflow: hidden;
+}
+
+code,
+kbd,
+pre,
+samp,
+.k-mono {
+  font-family: var(--k-font-mono);
+  font-size: var(--k-text-xs);
+  line-height: var(--k-leading-xs);
+}
+
+/* One visible focus treatment, everywhere, unless a surface opts out
+   with `:focus:not(:focus-visible)`. Never `outline: none` alone. */
+:focus-visible {
+  outline: 2px solid var(--k-accent);
+  outline-offset: 2px;
+  border-radius: var(--k-radius-sm);
+}
+
+/* Motion is preference-aware. Everything the app animates has a
+   reduce-motion path; this is the global kill switch for the rest. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::selection {
+  background: var(--k-accent-soft);
+  color: var(--k-text);
+}
+
+/* Scrollbars are part of the window chrome on Windows, so they are
+   tokens too, not an OS fallback that clashes with the theme. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--k-border-strong) transparent;
+}

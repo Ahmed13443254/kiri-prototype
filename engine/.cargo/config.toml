@@ -1,0 +1,5 @@
+# Portable build configuration.
+#
+# No target-dir, linker or target overrides: the engine builds with the default
+# toolchain into engine/target so the host and the Python probes find the binary
+# at engine/target/debug/kiri-engine.exe on every machine.

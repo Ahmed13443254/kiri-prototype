@@ -1,0 +1,5 @@
+/* Entry for Tailwind. All design values live in tokens.css; component rules
+   live in css/*.css and are imported after this file so they win the cascade. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
