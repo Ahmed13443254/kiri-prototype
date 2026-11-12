@@ -1,44 +1,48 @@
 # kiri
 
-تطبيق سطح مكتب عربي لإدارة جلسات وكيل برمجي، مبني باستخدام React وTypeScript وRust وTauri.
+An experimental desktop app for managing AI coding-agent sessions, built with React, TypeScript, Rust, and Tauri.
 
-> **نموذج مبدئي (Prototype):** المشروع قابل للتجربة والتطوير، وليس إصدارًا نهائيًا مستقرًا. قد توجد أخطاء أو وظائف غير مكتملة.
+> ## Project status: early prototype
+>
+> **kiri is not ready for production use.** It is an early prototype intended for initial testing, exploration, and feedback. Features may be incomplete, unstable, or subject to significant change.
 
-## المزايا الحالية
+Arabic is the primary interface language today. The interface and content architecture are being developed with multilingual support in mind, and additional languages will be added over time.
 
-- واجهة عربية RTL متجاوبة لإدارة المشاريع والمحادثات.
-- جلسات محفوظة مع البحث والاستئناف والتفرع.
-- تغيير النموذج ومستوى الجهد ونمط الصلاحيات.
-- عرض الردود والأدوات والتفكير ومراجعة فروقات الملفات.
-- شاشات للقواعد والمهام والتوسعات والسياق والذاكرة والإعدادات.
-- تخزين مفتاح النموذج في مخزن النظام عند استخدام تطبيق سطح المكتب.
+## Current features
 
-## مكونات المشروع
+- Responsive Arabic RTL interface for managing projects and conversations.
+- Persisted sessions with search, resume, and forking.
+- Model, effort level, and permission-mode controls.
+- Rendering for responses, tool calls, reasoning, and file diffs.
+- Screens for rules, tasks, extensions, context, memory, and settings.
+- OS credential-vault storage for the model API key in the desktop app.
 
-| المجلد | الوظيفة |
+## Repository structure
+
+| Directory | Purpose |
 | --- | --- |
-| `src/` | واجهة React وTypeScript |
-| `engine/` | محرك Rust يتواصل عبر NDJSON وstdin/stdout |
-| `src-tauri/` | مضيف Tauri وقاعدة SQLite وأوامر سطح المكتب |
-| `tests/` | اختبارات وفحوصات المحرك والتخزين |
+| `src/` | React and TypeScript interface |
+| `engine/` | Rust agent engine communicating over NDJSON and stdin/stdout |
+| `src-tauri/` | Tauri host, SQLite database, and desktop commands |
+| `tests/` | Engine and storage probes |
 
-## المتطلبات
+## Requirements
 
-- Node.js حديث وnpm.
-- Rust وCargo.
-- مترجم C مطلوب لبناء SQLite المضمّن في مضيف Tauri.
-- متطلبات Tauri الخاصة بنظام التشغيل.
+- A recent Node.js release and npm.
+- Rust and Cargo.
+- A C compiler for the bundled SQLite build used by the Tauri host.
+- The platform requirements for Tauri.
 
-## تشغيل الواجهة
+## Run the interface
 
 ```bash
 npm install
 npm run dev
 ```
 
-تعمل الواجهة محليًا على `http://localhost:1420`. تشغيلها في المتصفح وحده يعرض الواجهة، لكن الوظائف التي تعتمد على المحرك تحتاج إلى مضيف Tauri.
+The interface runs locally at `http://localhost:1420`. Running it in a browser alone displays the UI, but engine-backed features require the Tauri host.
 
-## بناء المحرك وتطبيق سطح المكتب
+## Build the engine and desktop app
 
 ```bash
 cargo build --manifest-path engine/Cargo.toml --release
@@ -46,27 +50,31 @@ npm run build
 npm run tauri build
 ```
 
-على Windows، يُفضّل وضع المشروع في مسار لا يحتوي على مسافات؛ بعض أدوات MinGW قد تفشل عند بناء Tauri من مسار يحتوي عليها. وضع التطوير الكامل عبر `tauri dev` لم يتم التحقق منه على جهاز التطوير الحالي بسبب مشكلة ربط في أداة MinGW.
+On Windows, avoid spaces in the project path because some MinGW tools can fail while building Tauri from such a path. The full `tauri dev` workflow has not been verified on the current development machine because of a MinGW linker issue.
 
-## مفتاح API
+## API key
 
-لا تضع مفاتيحك داخل المشروع أو ملفات الإعدادات العامة.
+Never commit an API key to the repository or a public configuration file.
 
-- تطبيق سطح المكتب يحفظ المفتاح في مخزن النظام.
-- عند تشغيل المحرك منفردًا، استخدم متغير البيئة `ANTHROPIC_API_KEY`.
-- يمكن تحديد نقطة نهاية متوافقة عبر `KIRI_BASE_URL`.
+- The desktop app stores the key in the OS credential vault.
+- When running the engine directly, provide `ANTHROPIC_API_KEY` through the environment.
+- A compatible endpoint can be configured with `KIRI_BASE_URL`.
 
-## الفحص
+## Verification
 
 ```bash
 npm run build
 cargo test --manifest-path engine/Cargo.toml
 ```
 
-تم التحقق من بناء الواجهة، والتنقل بين الشاشات، وتغيير النموذج، وتفعيل زر الإرسال عند إدخال نص. لم تُختبر جميع تدفقات المحرك بعد إعادة تصميم الواجهة؛ لذلك يبقى المشروع نموذجًا مبدئيًا.
+The interface build, screen navigation, model selection, and composer enablement have been checked. The engine test suite currently passes 32 tests. Not every engine workflow has been retested since the interface redesign, so kiri remains an early prototype rather than a production-ready release.
 
-## ملاحظات قبل النشر
+## Development notes
 
-- المجلدات والملفات المحلية والأسرار وقواعد البيانات ومجلدات البناء مستبعدة عبر `.gitignore`.
-- راجع أي مفتاح ظهر سابقًا في سجل الطرفية أو المشاركات وأعد إصداره من مزود الخدمة؛ حذفه من الملفات لا يلغي صلاحيته.
-- المشروع موزع بموجب ترخيص Apache License 2.0؛ راجع ملف `LICENSE`.
+- Local files, secrets, databases, build output, and test work directories are excluded through `.gitignore`.
+- If an API key was ever exposed in terminal output or elsewhere, revoke it with the provider and issue a new one. Removing it from files does not invalidate the credential.
+- The desktop host currently needs additional verification across platforms before it can be considered stable.
+
+## License
+
+Licensed under the Apache License 2.0. See [LICENSE](LICENSE).
